@@ -205,6 +205,7 @@ foundFav = (userFavsTab, favCheck, user, res) => {
       return true;
     }
   }
+  return false;
 };
 
 router.post("/update_user_info", isAuthenticated, async (req, res) => {
@@ -246,13 +247,13 @@ router.post("/update_user_info", isAuthenticated, async (req, res) => {
       const userFavsTab = req.user.favory;
       const favCheck = req.body.favory;
       let isInTab = false;
-      let position = null;
+      let resulta = null;
 
       console.log("userFavsTab ", userFavsTab);
       console.log("favCheck", favCheck);
 
-      let resulta = await foundFav(userFavsTab, favCheck, req.user, res);
-      if (!resulta) {
+      resulta = await foundFav(userFavsTab, favCheck, req.user, res);
+      if (resulta === false) {
         let ObjectId = mongoose.Types.ObjectId;
         userFavsTab.push(ObjectId(favCheck));
         req.user.favory = userFavsTab;
