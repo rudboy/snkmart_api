@@ -197,8 +197,6 @@ router.post("/get_other_user_info", async (req, res) => {
 
 foundFav = (userFavsTab, favCheck, user, res) => {
   for (let i = 0; i < userFavsTab.length; i++) {
-    res.json({ val: String(userFavsTab[i]), favCheck });
-
     if (String(userFavsTab[i]) === favCheck) {
       userFavsTab.splice(i, 1);
       user.favory = userFavsTab;
@@ -262,7 +260,6 @@ router.post("/update_user_info", isAuthenticated, async (req, res) => {
         req.user.save();
         res.json({ val: resulta });
       }
-      res.json({ val: resulta });
     }
     //modification a faire
   } catch (error) {
