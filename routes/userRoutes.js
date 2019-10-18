@@ -250,14 +250,14 @@ router.post("/update_user_info", isAuthenticated, async (req, res) => {
 
       if (isInTab) {
         userFavsTab.splice(position, 1);
-      } else {
+      } else if (!isInTab) {
         userFavsTab.push(ObjectId(favCheck));
       }
       req.user.favory = userFavsTab;
     }
     //modification a faire
     req.user.save();
-    res.json("update okay ");
+    res.json(isInTab);
   } catch (error) {
     res.status(400).json({ error: { message: error.message } });
   }
