@@ -241,24 +241,19 @@ router.post("/update_user_info", isAuthenticated, async (req, res) => {
       console.log("favCheck", favCheck);
 
       for (let i = 0; i < userFavsTab.length; i++) {
-        if (userFavsTab[i] === ObjectId(favCheck)) {
+        if (userFavsTab[i] === favCheck) {
           isInTab = true;
           position = i;
         }
       }
-      console.log("isInTab ", isInTab);
 
       if (isInTab) {
         userFavsTab.splice(position, 1);
       } else {
         userFavsTab.push(ObjectId(favCheck));
       }
-      console.log("userFavsTab ", userFavsTab);
-      console.log("------------");
-
       req.user.favory = userFavsTab;
     }
-
     //modification a faire
     req.user.save();
     res.json("update okay");
