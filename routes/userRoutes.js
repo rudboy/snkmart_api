@@ -241,10 +241,10 @@ router.post("/update_user_info", isAuthenticated, async (req, res) => {
       console.log("favCheck", favCheck);
 
       for (let i = 0; i < userFavsTab.length; i++) {
-        res.json(favCheck + " " + userFavsTab[i]);
         if (userFavsTab[i] === favCheck) {
           isInTab = true;
           position = i;
+          res.json(favCheck + " " + userFavsTab[i]);
         }
       }
 
