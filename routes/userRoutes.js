@@ -300,14 +300,14 @@ router.post("/update_user_info", isAuthenticated, async (req, res) => {
   }
 });
 
-router.post("all_fav", isAuthenticated, async (req, res) => {
+router.get("all_fav", isAuthenticated, async (req, res) => {
   try {
     res.json({ favory: req.user.favory });
   } catch (error) {
     res.status(400).json({ error: { message: error.message } });
   }
 });
-router.post("all_like", isAuthenticated, async (req, res) => {
+router.get("all_like", isAuthenticated, async (req, res) => {
   try {
     res.json({ like: req.user.like });
   } catch (error) {
