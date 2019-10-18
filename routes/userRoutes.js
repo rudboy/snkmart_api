@@ -257,7 +257,7 @@ router.post("/update_user_info", isAuthenticated, async (req, res) => {
     }
     //modification a faire
     req.user.save();
-    res.json({ val: { isInTab } });
+    res.json({ val: isInTab });
   } catch (error) {
     res.status(400).json({ error: { message: error.message } });
   }
