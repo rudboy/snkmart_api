@@ -201,7 +201,7 @@ foundFav = (userFavsTab, favCheck, user, res) => {
       userFavsTab.splice(i, 1);
       user.favory = userFavsTab;
       user.save();
-      res.json({ val: user.favory });
+      res.json({ val: userFavsTab });
       return true;
     }
   }
@@ -258,7 +258,7 @@ router.post("/update_user_info", isAuthenticated, async (req, res) => {
         userFavsTab.push(ObjectId(favCheck));
         req.user.favory = userFavsTab;
         req.user.save();
-        res.json({ val: resulta });
+        res.json({ val: userFavsTab });
       }
     }
     //modification a faire
