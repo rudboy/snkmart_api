@@ -195,6 +195,18 @@ router.post("/get_other_user_info", async (req, res) => {
   }
 });
 
+foundFav = (userFavsTab, favCheck, user) => {
+  for (let i = 0; i < userFavsTab.length; i++) {
+    if (userFavsTab[i] === favCheck) {
+      userFavsTab.splice(i, 1);
+      user.favory = userFavsTab;
+      user.save();
+      res.json({ val: user.favory });
+      return true;
+    }
+  }
+};
+
 router.post("/update_user_info", isAuthenticated, async (req, res) => {
   try {
     // console.log("req body ", req.body);
@@ -235,22 +247,20 @@ router.post("/update_user_info", isAuthenticated, async (req, res) => {
       const favCheck = req.body.favory;
       let isInTab = false;
       let position = null;
-      let ObjectId = mongoose.Types.ObjectId;
 
       console.log("userFavsTab ", userFavsTab);
       console.log("favCheck", favCheck);
 
-      for (let i = 0; i < userFavsTab.length; i++) {
-        if (userFavsTab[i] === favCheck) {
-          userFavsTab.splice(i, 1);
-        }
+      let res = foundFav(userFavsTab, favCheck, req.user);
+      if (res) {
+        let ObjectId = mongoose.Types.ObjectId;
+        userFavsTab.push(ObjectId(favCheck));
+        req.user.favory = userFavsTab;
+        req.user.save();
+        res.json({ val: req.user.favory });
       }
-      userFavsTab.push(ObjectId(favCheck));
-      req.user.favory = userFavsTab;
     }
     //modification a faire
-    req.user.save();
-    res.json({ val: req.user.favory });
   } catch (error) {
     res.status(400).json({ error: { message: error.message } });
   }
