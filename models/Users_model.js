@@ -36,7 +36,8 @@ const USER = mongoose.model("USER", {
   },
   picture: {
     type: String,
-    default: ""
+    default:
+      "https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwjxo7KarKXlAhUDVhoKHcxhDAgQjRx6BAgBEAQ&url=https%3A%2F%2Fwww.iconfinder.com%2Ficons%2F172626%2Fmale_user_icon&psig=AOvVaw0DCI2JV9qIC5Rdm2SbG4-x&ust=1571472180022155"
   },
   phone: {
     type: Number,

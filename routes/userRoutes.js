@@ -60,7 +60,7 @@ router.post("/password_forgotten", async (req, res) => {
       to: email,
       subject: "Hello",
       text: "Click on the link below to change your password.",
-      html: `<a href=http://localhost:5500?token=${user.token}
+      html: `<a href=https://snkmartapi.herokuapp.com/?token=${user.token}
           >Cliquez pour réinitialiser votre mot de passe</a>` // lien à changer
     };
 
