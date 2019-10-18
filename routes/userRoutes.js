@@ -252,13 +252,14 @@ router.post("/update_user_info", isAuthenticated, async (req, res) => {
       console.log("favCheck", favCheck);
 
       let res = await foundFav(userFavsTab, favCheck, req.user, res);
-      if (res) {
+      if (!res) {
         let ObjectId = mongoose.Types.ObjectId;
         userFavsTab.push(ObjectId(favCheck));
         req.user.favory = userFavsTab;
         req.user.save();
         res.json({ val: req.user.favory });
       }
+      res.json({ val: res });
     }
     //modification a faire
   } catch (error) {
