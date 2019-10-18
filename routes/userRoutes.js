@@ -207,6 +207,18 @@ foundFav = (userFavsTab, favCheck, user, res) => {
   }
   return false;
 };
+foundLike = (userFavsTab, favCheck, user, res) => {
+  for (let i = 0; i < userFavsTab.length; i++) {
+    if (String(userFavsTab[i]) === favCheck) {
+      userFavsTab.splice(i, 1);
+      user.like = userFavsTab;
+      user.save();
+      res.json({ val: userFavsTab });
+      return true;
+    }
+  }
+  return false;
+};
 
 router.post("/update_user_info", isAuthenticated, async (req, res) => {
   try {
@@ -259,6 +271,27 @@ router.post("/update_user_info", isAuthenticated, async (req, res) => {
         req.user.favory = userFavsTab;
         req.user.save();
         res.json({ val: userFavsTab });
+      }
+    }
+
+    if (req.body.like) {
+      console.log("req.body.favory ", req.body.like);
+      console.log("req.user.favory ", req.user.like);
+
+      const userlikeTab = req.user.like;
+      const likeCheck = req.body.like;
+      let resulta = null;
+
+      console.log("userFavsTab ", userlikeTab);
+      console.log("favCheck", likeCheck);
+
+      resulta = await foundLike(userlikeTab, likeCheck, req.user, res);
+      if (resulta === false) {
+        let ObjectId = mongoose.Types.ObjectId;
+        userlikeTab.push(ObjectId(likeCheck));
+        req.user.like = userlikeTab;
+        req.user.save();
+        res.json({ val: userlikeTab });
       }
     }
     //modification a faire

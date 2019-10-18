@@ -24,6 +24,10 @@ const USER = mongoose.model("USER", {
     type: Array,
     default: []
   },
+  like: {
+    type: Array,
+    default: []
+  },
   username: {
     type: String,
     default: "",
