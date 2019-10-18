@@ -197,9 +197,9 @@ router.post("/get_other_user_info", async (req, res) => {
 
 foundFav = (userFavsTab, favCheck, user, res) => {
   for (let i = 0; i < userFavsTab.length; i++) {
-    res.json({ val: userFavsTab[i], favCheck });
+    res.json({ val: String(userFavsTab[i]), favCheck });
 
-    if (userFavsTab[i] === favCheck) {
+    if (String(userFavsTab[i]) === favCheck) {
       userFavsTab.splice(i, 1);
       user.favory = userFavsTab;
       user.save();
