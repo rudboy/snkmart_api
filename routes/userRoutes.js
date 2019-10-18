@@ -257,7 +257,7 @@ router.post("/update_user_info", isAuthenticated, async (req, res) => {
         userFavsTab.push(ObjectId(favCheck));
         req.user.favory = userFavsTab;
         req.user.save();
-        res.json({ val: req.user.favory });
+        res.json({ val: resulta });
       }
       res.json({ val: resulta });
     }
