@@ -8,7 +8,7 @@ const SHA256 = require("crypto-js/sha256");
 const encBase64 = require("crypto-js/enc-base64");
 const uid2 = require("uid2");
 const USER = require("../models/Users_model");
-
+const mongoose = require("mongoose");
 const api_key = "594ccaf6b4106bbbb1c5fe3d6cf2cdb8-acb0b40c-0968acfd";
 const domain = "sandbox8fe5917dd2e14689a4c9878a063a0ffc.mailgun.org";
 const mailgun = require("mailgun-js")({ apiKey: api_key, domain: domain });
@@ -235,12 +235,13 @@ router.post("/update_user_info", isAuthenticated, async (req, res) => {
       const favCheck = req.body.favory;
       let isInTab = false;
       let position = null;
+      let ObjectId = mongoose.Types.ObjectId;
 
       console.log("userFavsTab ", userFavsTab);
       console.log("favCheck", favCheck);
 
       for (let i = 0; i < userFavsTab.length; i++) {
-        if (userFavsTab[i] === favCheck) {
+        if (userFavsTab[i] === ObjectId(favCheck)) {
           isInTab = true;
           position = i;
         }
