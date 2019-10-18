@@ -242,22 +242,15 @@ router.post("/update_user_info", isAuthenticated, async (req, res) => {
 
       for (let i = 0; i < userFavsTab.length; i++) {
         if (userFavsTab[i] === favCheck) {
-          isInTab = true;
-          position = i;
-          res.json(favCheck + " " + userFavsTab[i]);
+          userFavsTab.splice(i, 1);
         }
       }
-
-      if (isInTab) {
-        userFavsTab.splice(position, 1);
-      } else if (!isInTab) {
-        userFavsTab.push(ObjectId(favCheck));
-      }
+      userFavsTab.push(ObjectId(favCheck));
       req.user.favory = userFavsTab;
     }
     //modification a faire
     req.user.save();
-    res.json({ val: isInTab });
+    res.json({ val: req.user.favory });
   } catch (error) {
     res.status(400).json({ error: { message: error.message } });
   }
