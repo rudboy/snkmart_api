@@ -21,8 +21,8 @@ const USER = mongoose.model("USER", {
     default: ""
   },
   favory: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "POST"
+    type: Array,
+    default: []
   },
   username: {
     type: String,
