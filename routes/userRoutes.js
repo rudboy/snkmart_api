@@ -8,6 +8,7 @@ const SHA256 = require("crypto-js/sha256");
 const encBase64 = require("crypto-js/enc-base64");
 const uid2 = require("uid2");
 const USER = require("../models/Users_model");
+const POST = require("../models/Post_model");
 const mongoose = require("mongoose");
 const api_key = "594ccaf6b4106bbbb1c5fe3d6cf2cdb8-acb0b40c-0968acfd";
 const domain = "sandbox8fe5917dd2e14689a4c9878a063a0ffc.mailgun.org";
@@ -303,6 +304,19 @@ router.post("/update_user_info", isAuthenticated, async (req, res) => {
 router.get("/all_fav", isAuthenticated, async (req, res) => {
   try {
     res.json({ favory: req.user.favory });
+  } catch (error) {
+    res.status(400).json({ error: { message: error.message } });
+  }
+});
+router.get("/all_fav_Detail", isAuthenticated, async (req, res) => {
+  try {
+    const tab = req.user.favory;
+    let newTab = [];
+    for (i = 0; i < tab.length; i++) {
+      let post = await POST.findOne({ _id: tab[i] }).populate("creator");
+      newTab.push(post);
+    }
+    res.json({ favory: newTab });
   } catch (error) {
     res.status(400).json({ error: { message: error.message } });
   }
