@@ -57,7 +57,6 @@ router.get("/all_post", async (req, res) => {
 router.get("/post_by_creator", isAuthenticated, async (req, res) => {
   try {
     const user_id = req.user._id;
-    res.json(user_id);
     const post_user = await POST.find({ creator: user_id });
     res.json(post_user.reverse());
   } catch (error) {
