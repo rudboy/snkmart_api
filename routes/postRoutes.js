@@ -59,7 +59,7 @@ router.get("/post_by_creator", isAuthenticated, async (req, res) => {
     const user_id = req.user._id;
     const post_user = await POST.find({ creator: user_id }).populate({
       path: "creator",
-      select: { username: 0, picture: 0 }
+      select: { username: 1, picture: 1 }
     });
     res.json(post_user.reverse());
   } catch (error) {
