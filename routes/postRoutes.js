@@ -54,4 +54,14 @@ router.get("/all_post", async (req, res) => {
   }
 });
 
+router.get("/post_by_creator", isAuthenticated, async (req, res) => {
+  try {
+    const user_id = req.user._id;
+    const post_user = await POST.find({ creator: user_id });
+    res.json(post_user.reverse());
+  } catch (error) {
+    res.status(400).json({ error: { message: error.message } });
+  }
+});
+
 module.exports = router;
