@@ -46,7 +46,10 @@ router.post("/create_post", isAuthenticated, uploadPictures, function(
 
 router.get("/all_post", async (req, res) => {
   try {
-    const all_key = await POST.find({}.key).populate("creator");
+    const all_key = await POST.find({}.key).populate({
+      path: "creator",
+      select: { username: 1, picture: 1 }
+    });
     //const alllist = await POST.find();
     res.json(all_key.reverse());
   } catch (error) {
