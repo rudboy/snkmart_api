@@ -295,7 +295,7 @@ router.post("/update_user_info", isAuthenticated, async (req, res) => {
         let ObjectId = mongoose.Types.ObjectId;
         userlikeTab.push(ObjectId(likeCheck));
         req.user.like = userlikeTab;
-        const numberlike = await POST.findOne({ _id: favCheck });
+        const numberlike = await POST.findOne({ _id: likeCheck });
         numberlike.like = numberlike.like++;
         res.json({ val: numberlike });
         numberlike.save();
