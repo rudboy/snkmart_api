@@ -213,6 +213,9 @@ foundLike = (userFavsTab, favCheck, user, res) => {
     if (String(userFavsTab[i]) === favCheck) {
       userFavsTab.splice(i, 1);
       user.like = userFavsTab;
+      const numberlike = await POST.findOne({_id: favCheck});
+      numberlike.like = numberlike.like ++;
+      numberlike.save()
       user.save();
       res.json({ val: userFavsTab });
       return true;
@@ -291,6 +294,9 @@ router.post("/update_user_info", isAuthenticated, async (req, res) => {
         let ObjectId = mongoose.Types.ObjectId;
         userlikeTab.push(ObjectId(likeCheck));
         req.user.like = userlikeTab;
+        const numberlike = await POST.findOne({_id: favCheck});
+        numberlike.like = numberlike.like --;
+        numberlike.save()
         req.user.save();
         res.json({ val: userlikeTab });
       }
