@@ -70,7 +70,7 @@ router.get("/post_by_creator", isAuthenticated, async (req, res) => {
   }
 });
 
-router.get("/post_info", isAuthenticated, async (req, res) => {
+router.post("/post_info", isAuthenticated, async (req, res) => {
   try {
     let id_post = req.body.post;
     const info_post = await POST.findOne({ _id: id_post });
