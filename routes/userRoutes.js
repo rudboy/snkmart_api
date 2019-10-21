@@ -214,7 +214,7 @@ foundLike = async (userFavsTab, favCheck, user, res) => {
       userFavsTab.splice(i, 1);
       user.like = userFavsTab;
       const numberlike = await POST.findOne({ _id: favCheck });
-      numberlike.like = numberlike.like--;
+      numberlike.like = numberlike.like - 1;
       numberlike.save();
       user.save();
       res.json({ val: userFavsTab });
@@ -295,7 +295,7 @@ router.post("/update_user_info", isAuthenticated, async (req, res) => {
         userlikeTab.push(ObjectId(likeCheck));
         req.user.like = userlikeTab;
         const numberlike = await POST.findOne({ _id: likeCheck });
-        numberlike.like = numberlike.like++;
+        numberlike.like = numberlike.like + 1;
         numberlike.save();
         req.user.save();
         res.json({ val: userlikeTab });
