@@ -92,7 +92,7 @@ router.post("/post_comment", isAuthenticated, async (req, res) => {
     const info_post = await POST.findOne({ _id: id });
     info_post.comment.push({ text: text, date: date });
     info_post.save();
-    res.json("post okay");
+    res.json(info_post);
   } catch (error) {
     res.status(400).json({ error: { message: error.message } });
   }
