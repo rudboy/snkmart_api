@@ -72,12 +72,27 @@ router.get("/post_by_creator", isAuthenticated, async (req, res) => {
 
 router.post("/post_info", isAuthenticated, async (req, res) => {
   try {
-    let id_post = req.body.post;
+    const id_post = req.body.post;
     const info_post = await POST.findOne({ _id: id_post }).populate({
       path: "creator",
       select: { username: 1, picture: 1 }
     });
     res.json(info_post);
+  } catch (error) {
+    res.status(400).json({ error: { message: error.message } });
+  }
+});
+
+router.post("/post_comment", isAuthenticated, async (req, res) => {
+  try {
+    const text = req.body.post;
+    const id = req.body.id;
+    const date = Date.now;
+
+    const info_post = await POST.findOne({ _id: id });
+    info_post.comment.push({ text: text, date: date });
+    info_post.save();
+    res.json("post okay");
   } catch (error) {
     res.status(400).json({ error: { message: error.message } });
   }
