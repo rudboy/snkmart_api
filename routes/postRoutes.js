@@ -86,6 +86,8 @@ router.post("/post_info", isAuthenticated, async (req, res) => {
 router.post("/post_comment", isAuthenticated, async (req, res) => {
   try {
     const text = req.body.post;
+    const name = req.body.name;
+    const picture = req.body.picture;
     const id = req.body.id;
     const date = Date.now;
 
@@ -93,7 +95,12 @@ router.post("/post_comment", isAuthenticated, async (req, res) => {
       path: "creator",
       select: { username: 1, picture: 1 }
     });
-    info_post.comment.push({ text: text, date: date });
+    info_post.comment.push({
+      text: text,
+      name: name,
+      picture: picture,
+      date: date
+    });
     info_post.save();
     res.json(info_post);
   } catch (error) {
