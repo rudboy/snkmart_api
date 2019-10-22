@@ -89,7 +89,10 @@ router.post("/post_comment", isAuthenticated, async (req, res) => {
     const id = req.body.id;
     const date = Date.now;
 
-    const info_post = await POST.findOne({ _id: id });
+    const info_post = await POST.findOne({ _id: id }).populate({
+      path: "creator",
+      select: { username: 1, picture: 1 }
+    });
     info_post.comment.push({ text: text, date: date });
     info_post.save();
     res.json(info_post);
