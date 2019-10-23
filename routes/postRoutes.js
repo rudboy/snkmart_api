@@ -104,6 +104,7 @@ router.post("/post_comment", isAuthenticated, async (req, res) => {
     });
     if (req.user._id !== info_post.creator._id) {
       const creator = await USER.findOne({ _id: info_post.creator._id });
+      res.json(creator);
       creator.notification.push({
         id: req.user._id,
         username: req.user.username,
