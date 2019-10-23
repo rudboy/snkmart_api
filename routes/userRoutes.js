@@ -168,9 +168,9 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/get_my_user_info", async (req, res) => {
+router.get("/get_my_user_info", isAuthenticated, async (req, res) => {
   try {
-    const allinfo = await USER.findOne({ token: req.query.token });
+    const allinfo = await USER.findOne({ _id: req.user._id });
     res.json(allinfo);
   } catch (error) {
     res.status(400).json({ error: { message: error.message } });
