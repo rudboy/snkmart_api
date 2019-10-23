@@ -20,6 +20,10 @@ const USER = mongoose.model("USER", {
     type: String,
     default: ""
   },
+  notification: {
+    type: Array,
+    default: []
+  },
   favory: {
     type: Array,
     default: []

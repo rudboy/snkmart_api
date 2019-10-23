@@ -101,6 +101,15 @@ router.post("/post_comment", isAuthenticated, async (req, res) => {
       picture: picture,
       date: date
     });
+    if (req.user._id !== info_post.creator._id) {
+      req.user.notification.push({
+        id: req.user._id,
+        username: req.user.username,
+        action: "comment",
+        post: id
+      });
+    }
+    req.user.save();
     info_post.save();
     res.json(info_post);
   } catch (error) {
