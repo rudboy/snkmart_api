@@ -111,7 +111,7 @@ router.post("/post_comment", isAuthenticated, async (req, res) => {
         post: id
       });
     }
-    req.user.save();
+    creator.save();
     info_post.save();
     res.json(info_post);
   } catch (error) {
