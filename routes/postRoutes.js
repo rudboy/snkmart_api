@@ -6,6 +6,7 @@ router.use(body_parser.json(), cors());
 var isAuthenticated = require("../middlewares/isAuthenticated");
 var uploadPictures = require("../middlewares/uploadPictures");
 const POST = require("../models/Post_model");
+const USER = require("../models/Users_model");
 
 //Ajoute d'une sneaker
 router.post("/create_post", isAuthenticated, uploadPictures, function(
@@ -102,7 +103,8 @@ router.post("/post_comment", isAuthenticated, async (req, res) => {
       date: date
     });
     if (req.user._id !== info_post.creator._id) {
-      req.user.notification.push({
+      const creator = await USER.findOne({ _id: info_post.creator._id });
+      creator.notification.push({
         id: req.user._id,
         username: req.user.username,
         action: "comment",
