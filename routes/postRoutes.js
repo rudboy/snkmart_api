@@ -132,7 +132,7 @@ router.post("/delete_comment", isAuthenticated, async (req, res) => {
         newPost.comment[i].date === date &&
         newPost.comment[i].creator === id
       ) {
-        newPost.comment.slice(i, 1);
+        newPost.comment.splice(i, 1);
       }
     }
     newPost.save();
