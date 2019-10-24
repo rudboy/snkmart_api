@@ -128,10 +128,9 @@ router.post("/delete_comment", isAuthenticated, async (req, res) => {
   try {
     let newPost = await POST.findOne({ _id: req.body.post });
     for (let i = 0; i < newPost.comment.length; i++) {
-      res.json({ date: newPost.comment[i].creator, date1: id });
       if (
-        newPost.comment[i].date === date &&
-        newPost.comment[i].creator === id
+        String(newPost.comment[i].date) === date &&
+        String(newPost.comment[i].creator) === id
       ) {
         newPost.comment.splice(i, 1);
         newPost.save();
