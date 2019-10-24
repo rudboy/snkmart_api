@@ -171,8 +171,8 @@ router.post("/login", async (req, res) => {
 router.get("/get_my_user_info", isAuthenticated, async (req, res) => {
   try {
     let allinfo = await USER.findOne({ _id: req.user._id });
-    delete allinfo.salt;
-    delete allinfo.token;
+    delete allinfo["salt"];
+    delete allinfo["token"];
     res.json(allinfo);
   } catch (error) {
     res.status(400).json({ error: { message: error.message } });
