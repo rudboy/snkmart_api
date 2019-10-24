@@ -126,7 +126,10 @@ router.post("/delete_comment", isAuthenticated, async (req, res) => {
   const post = req.body.post;
 
   try {
-    let newPost = await POST.findOne({ _id: req.body.post });
+    let newPost = await POST.findOne({ _id: req.body.post }).populate({
+      path: "creator",
+      select: { username: 1, picture: 1 }
+    });
     for (let i = 0; i < newPost.comment.length; i++) {
       if (
         String(newPost.comment[i].date) === String(date) &&
@@ -134,10 +137,7 @@ router.post("/delete_comment", isAuthenticated, async (req, res) => {
       ) {
         newPost.comment.splice(i, 1);
         newPost.save();
-        return res.json(newPost).populate({
-          path: "creator",
-          select: { username: 1, picture: 1 }
-        });
+        return res.json(newPost);
       }
     }
   } catch (error) {
