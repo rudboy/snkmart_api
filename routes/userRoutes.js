@@ -170,7 +170,7 @@ router.post("/login", async (req, res) => {
 
 router.get("/get_my_user_info", isAuthenticated, async (req, res) => {
   try {
-    const allinfo = await USER.findOne({ _id: req.user._id });
+    let allinfo = await USER.findOne({ _id: req.user._id });
     delete allinfo.salt;
     delete allinfo.token;
     res.json(allinfo);
