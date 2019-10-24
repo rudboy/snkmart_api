@@ -134,7 +134,10 @@ router.post("/delete_comment", isAuthenticated, async (req, res) => {
       ) {
         newPost.comment.splice(i, 1);
         newPost.save();
-        return res.json(newPost);
+        return res.json(newPost).populate({
+          path: "creator",
+          select: { username: 1, picture: 1 }
+        });
       }
     }
   } catch (error) {
