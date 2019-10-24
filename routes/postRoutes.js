@@ -134,10 +134,10 @@ router.post("/delete_comment", isAuthenticated, async (req, res) => {
         newPost.comment[i].creator === id
       ) {
         newPost.comment.splice(i, 1);
+        newPost.save();
+        return res.json(newPost);
       }
     }
-    newPost.save();
-    res.json(newPost);
   } catch (error) {
     res.status(400).json({ error: { message: error.message } });
   }
