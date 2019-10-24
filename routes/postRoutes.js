@@ -100,7 +100,8 @@ router.post("/post_comment", isAuthenticated, async (req, res) => {
       text: text,
       name: name,
       picture: picture,
-      date: date
+      date: date,
+      creator: req.user._id
     });
     if (req.user._id !== info_post.creator._id) {
       let creator = await USER.findOne({ _id: info_post.creator._id });
