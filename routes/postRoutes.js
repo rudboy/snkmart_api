@@ -120,4 +120,26 @@ router.post("/post_comment", isAuthenticated, async (req, res) => {
   }
 });
 
+router.post("/delete_comment", isAuthenticated, async (req, res) => {
+  const id = req.body.id;
+  const date = req.body.date;
+  const post = req.body.post;
+
+  try {
+    let newPost = await POST.findOne({ _id: req.body.post });
+    for (let i = 0; i < newPost.comment.length; i++) {
+      if (
+        newPost.comment[i].date === date &&
+        newPost.comment[i].creator === id
+      ) {
+        newPost.comment.slice(i, 1);
+      }
+    }
+    newPost.save();
+    res.json(newPost);
+  } catch (error) {
+    res.status(400).json({ error: { message: error.message } });
+  }
+});
+
 module.exports = router;
