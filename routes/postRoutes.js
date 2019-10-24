@@ -110,7 +110,6 @@ router.post("/post_comment", isAuthenticated, async (req, res) => {
         action: "comment",
         post: id
       });
-      res.json(creator);
     }
     creator.save();
     info_post.save();
