@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
         }
         if (!user) {
           //console.log("");
-          return res.status(401).json({ error: "Unauthorized" });
+          return res.status(401).json({ error: { message: "unauthorized" } });
         } else {
           req.user = user;
 
@@ -19,6 +19,8 @@ module.exports = async (req, res, next) => {
       }
     );
   } else {
-    return res.status(401).json({ error: "erre" });
+    return res
+      .status(401)
+      .json({ error: { message: "Error Authentification" } });
   }
 };
